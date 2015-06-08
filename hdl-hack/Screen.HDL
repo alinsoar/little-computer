@@ -1,0 +1,14 @@
+;;;; /**
+;;;;    IO access. Interface with a screen device.
+;;;;  */
+
+(defgate Screen
+    (IN
+        (in 16)
+        load
+        (address 13))
+
+    (OUT
+        (out 16))
+
+  (@instrument-screen in load address out))

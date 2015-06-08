@@ -1,0 +1,13 @@
+;;;; /* Data flip-flop */
+
+(defgate DFF
+    (IN
+        in)
+
+    (OUT
+        out)
+
+  (Not (in CLK) (out notclk))
+  (DLatch (d in) (enable CLK) (q dmaster) (notq ndmaster))
+  (RSFlipFlop (s dmaster) (r ndmaster) (enable notclk) (q out) (notq dummy)))
+

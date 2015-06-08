@@ -1,0 +1,14 @@
+;;;; /**
+;;;;  * Not gate:
+;;;;  * out = not in
+;;;;  */
+
+(defgate Not
+    (IN
+        in)
+
+    (OUT
+        out)
+
+  (Nand (a in) (b in) (out out)))
+

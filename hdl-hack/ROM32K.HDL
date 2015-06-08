@@ -1,0 +1,13 @@
+;;;; /**
+;;;;    ROM of 32K.
+;;;;  */
+
+(defgate ROM32K
+    (IN
+        (address 15))
+
+    (OUT
+        (out 16))
+
+  (@instrument-rom address out))
+

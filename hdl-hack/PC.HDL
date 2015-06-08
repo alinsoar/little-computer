@@ -1,0 +1,26 @@
+;;;; /**
+;;;;  * A 16-bit counter with load and reset control bits.
+;;;;  * if      (reset[t] == 1) out[t+1] = 0
+;;;;  * else if (load[t] == 1)  out[t+1] = in[t]
+;;;;  * else if (inc[t] == 1)   out[t+1] = out[t] + 1  (integer addition)
+;;;;  * else                    out[t+1] = out[t]
+;;;;  */
+
+(defgate PC
+    (IN
+        (in 16)
+        load
+        inc
+        reset)
+
+    (OUT
+        (out 16))
+
+  (Inc16 (in memo) (out incr))
+  (Or (a reset) (b load) (out load0))
+  (Or (a load0) (b inc) (out load1))
+  (Mux16 (a incr) (b in) (sel load) (out w1))
+  (Mux16 (a w1) (b GND) (sel reset) (out w2))
+  (Register (in w2) (load load1) (out out) (out memo))
+  (@instrument-reg-pc out))
+

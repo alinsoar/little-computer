@@ -1,0 +1,15 @@
+;;;; /**
+;;;;  * Nand : we must have the header definition of Nand even if its
+;;;;  * semantics is internal to the computer.
+;;;;  */
+
+(defgate Nand
+    (IN
+        a
+        b)
+
+    (OUT
+        out)
+
+  (@internal a b out))
+

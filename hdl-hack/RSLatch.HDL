@@ -1,0 +1,25 @@
+;;;; /* 
+;;;;  * RS NAND Latch:
+;;;;  * {R,S} = {0,0} => Not useful
+;;;;  *         {0,1} => Q = 1
+;;;;  *         {1,0} => Q = 0
+;;;;  *         {1,1} => memory, keep previous value
+;;;;  *
+;;;;  * To avoid a race condition, one must not pass in a single step to
+;;;;  * the inputs 1/1 from the inputs 0/0.
+;;;;  */
+
+(defgate RSLatch
+    (IN
+        s
+        r)
+
+    (OUT
+        q
+        notq)
+
+  (Nand (a s) (b notq) (out q))
+  (Nand (a r) (b q) (out notq))
+  ;; set up initial state of the latch at startup.
+  (@set-high s r notq))
+

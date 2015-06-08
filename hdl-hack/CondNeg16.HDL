@@ -1,0 +1,16 @@
+;;;; /**
+;;;;  * 16-bit Conditional Negative -- the same as 16-bit Xor(sel, in):
+;;;;  * for i=0..15: out[i] = not in[i] if sel else in[i]
+;;;;  */
+
+(defgate CondNeg16
+    (IN
+        (in 16)
+        sel)
+
+    (OUT
+        (out 16))
+
+  (Not16 (in in) (out notin))
+  (Mux16 (a in) (b notin) (sel sel) (out out)))
+

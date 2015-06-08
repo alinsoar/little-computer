@@ -1,0 +1,16 @@
+;;;; /**
+;;;;  * Computes the sum of two bits.
+;;;;  */
+
+(defgate HalfAdder
+    (IN
+        a
+        b)
+
+    (OUT
+        sum
+        carry)
+
+  (Xor (a a) (b b) (out sum))
+  (And (a a) (b b) (out carry)))
+

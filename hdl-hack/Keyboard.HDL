@@ -1,0 +1,12 @@
+;;;; /**
+;;;;    IO access. We send signals on `out` wires that represent the ASCII
+;;;;    code of some character.
+;;;;  */
+
+(defgate Keyboard
+    (IN)
+    (OUT
+        (out 16))
+
+  (@instrument-keyboard out))
+

@@ -1,0 +1,198 @@
+# -*- mode:org ; buffer-read-only:t -*-
+
+
+ 
+ 
+
+
+* DESCRIPTION
+
+The Little Computer is a tool for creating computers.
+
+Initially it was designed to implement the Hack Architecture but it can
+be used for implementing advanced computers as well.
+
+The Little Computer, at the current stage (version 0.2), is no more no
+less than the Hack Computer in executable form.  This is why in the
+current version, 0.2, it makes sense to intermix the terms.
+
+The Hack Computer is defined in the `TEoCS` book, "The Elements of
+Computing Systems", MIT press.
+
+The semantics of the Hardware Description Language that the Little
+Computer implemented is defined in the Appendix A of the TEoCS book.
+
+The only difference between the semantics defined in the TEoCS and the
+current implementation is in Output. See the INPUT AND OUTPUT.
+
+Technically, to build the Little Computer, I used many methods that I
+learned from MIT 6.945, "Adventures in Advanced Symbolic Programming".
+
+
+
+
+* FUTURE DEVELOPMENT
+
+In the future I am not sure if I further develop the Little Computer
+such that to do it a professional tool like Verilog, but what I can
+say is that the following additions will come:
+
+-- a C compiler generating Hack assembler such that the C programmers
+   be able to write code running on the little computer.  The C
+   compiler will be quite abstract such that to be able to have
+   multiple back ends, not only hack symbolic assembler.
+
+-- a machine that implements an evaluator of MIT-SCHEME written as
+   datapath and control logic -- as wires, latches, clocks, nands, and
+   things like that.
+
+The Little Computer probably will be rewritten in MIT-SCHEME such that
+the Knights of the Lambda Calculus to like it.
+
+
+
+* INPUT AND OUTPUT
+
+The output is different from the output defined in the TEoCS.
+
+The Little Computer does not have a graphical output, it has only a
+simple console that can print ASCII characters only.
+
+In the TEoCS implementation of the output one plots graphical pixels.
+To draw the pixel X,Y one needs to do so: SCREEN[X][Y]=1 (formula is
+abstracted modulo bus width).
+
+In the Little Computer, in order to print the character with the ascii
+code A we do simply so: SCREEN[A]=1.  The useful screen memory has
+only 128 locations.
+
+This is the only semantic difference between the TEoCS definition
+and the current implementation.
+
+Concerning the input, the operating system is supposed to provide the
+sound GETCHAR function that should be used by the programmer.  The
+hack programmer who wants to read keys from the keyboard should know
+how the hack computer works in its internals in order to successfully
+write a getchar function.  See the example code and the comments from
+sim in order to understand the logic behind.
+
+
+
+
+* CURRENT VERSION 0.2 (CANONICAL HACK) VS. VERSION 0.1 (INITIAL HACK)
+
+There is no big difference between these 2 versions but there are a
+myriad of little improvements.
+
+The major improvement is the addition of Input/Output, which replaced
+the need to attach probes on wires/buses to read the results and to
+encode the input either in the microcode or in hardware.
+
+The development of the first version, 0.1, was stopped when I could
+compute any primitive recursive and general recursive function.
+
+The development of the present version, 0.2, had purpose to add i/o
+and to simplify the code at canonical form.
+
+The lexer used by the Hack assembler is the same that I wrote for the
+compiler of the C programming language (update to come next, in
+version 0.3).
+
+The tests used to check the correctness of the hardware structures
+have been dropped, as the hardware has been heavily checked in version
+0.1.  To see the tests, check out the tag 0.1.
+
+The HDL equations were modified from TEoCS syntax to lisp syntax
+`defgate`.
+
+The version 0.1 presents no more any practical interest.  However, I
+keep it at the tag `0.1` in order to keep in memory how I developed
+the first version.  The development took exactly 20 days of working a
+few hours each day.  I built it after I discovered the Nand2Tetris
+course on coursera.  In the first 3 weeks I quickly studied the
+materials and in the last 3 weeks I built the little computer.
+
+
+
+
+* THE LAYERS OF LANGUAGES IMPLEMENTED FOR THE LITTLE COMPUTER.
+
+
+The starred languages must be known in order to be able to use the
+little computer at that levels.  The other intermediary languages are
+supposed to be known only by the working technician.
+
+
+
+| FILE               | IN-LANG                       | OUT-LANG          | DESCRIPTION                                    |
+|--------------------+-------------------------------+-------------------+------------------------------------------------|
+| *.hdl              | *ALGEBRAIC EQUATIONS*         | HDL               | hardware description language                  |
+| hdl-semantics      | HDL                           | HDL BYTECODE      | semantic check of hdl files                    |
+| hwc                | HDL BYTECODE                  | HWS               | modularize the hardware structures             |
+| sim                | HWS; HACK MICROCODE           | PROPAGATORS       | simulator of the electrical signal propagation |
+| lexer              | REGEX COMBINATORS, *RAW CODE* | TOKEN STREAM      | tokenize an input in function of regexps       |
+| hack-lexical       | REGULAR EXPRESSIONS           | REGEX COMBINATORS | define hack token syntax                       |
+| hack-phrase-struct | AUTOMATA, HACK TOKENS         | HACK MICROCODE    | called by hack assembler                       |
+|--------------------+-------------------------------+-------------------+------------------------------------------------|
+| c-lexical          | regular expressions           | regex combinators | lexical structure of C files                   |
+| c-phrase-struct    | c tokens, automata            | c parse tree      | context free structure of C files              |
+| c-semantics        | c parse tree                  | cimple            | C Simple with no semantic errors               |
+| cimple             | cimple                        | ... hack-asm      | TODO NEXT                                      |
+|                    |                               |                   |                                                |
+
+
+
+
+* HOW TO USE IT
+
+
+** 1. compile the .hdl equations with
+
+  make hwc
+
+This will create the .hw files in ./hw directory. One can split the
+whole computer in any modules we want by inserting them in
+MODULE-LIST.  Each module in this list is compiled as a unit and can
+be either expanded in smaller atoms in the simulator or can be
+replaced by a software simulator within sim.
+
+
+** 2. compile the hack programs with
+
+  make hack
+
+This will create the binary files in Hack format in ./bin directory.
+
+
+** 3. see the list of available hack programs doing so:
+
+  make sim
+
+You can also execute all the steps 1-3 once just by typing:
+
+  make rebuild
+
+
+** 4. execute the hack program `collatz` so:
+
+  make sim HACK=collatz
+
+The Collatz program reads an integer from the input and displays the
+values of the collatz function.
+
+
+
+
+* BUGS
+
+There are surely bugs but no one was discovered as yet.
+
+If you discover some bug please report me by mail.
+
+
+My English is not advanced.  If you find notorious mistakes of English
+please write me the logical explanation why the mistake was made.
+
+
+
+

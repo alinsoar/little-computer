@@ -1,0 +1,18 @@
+;;;; /**
+;;;;  * Computes the sum of three bits.
+;;;;  */
+
+(defgate FullAdder
+    (IN
+        a
+        b
+        c)
+
+    (OUT
+        sum
+        carry)
+
+  (HalfAdder (a a) (b b) (sum s0) (carry c0))
+  (HalfAdder (a c) (b s0) (sum sum) (carry c1))
+  (Or (a c0) (b c1) (out carry)))
+

@@ -1,0 +1,86 @@
+;;;; /**
+;;;;  * The Hack CPU (Central Processing unit), consisting of an ALU, two
+;;;;  * registers named A and D, and a program counter named PC.  The CPU
+;;;;  * is designed to fetch and execute instructions written in the Hack
+;;;;  * machine language. In particular, functions as follows: Executes the
+;;;;  * inputted instruction according to the Hack machine language
+;;;;  * specification. The D and A in the language specification refer to
+;;;;  * CPU-resident registers, while M refers to the external memory
+;;;;  * location addressed by A, i.e. to Memory[A]. The inM input holds the
+;;;;  * value of this location. If the current instruction needs to write a
+;;;;  * value to M, the value is placed in outM, the address of the target
+;;;;  * location is placed in the addressM output, and the writeM control
+;;;;  * bit is asserted. (When writeM==0, any value may appear in
+;;;;  * outM). The outM and writeM outputs are combinational: they are
+;;;;  * affected instantaneously by the execution of the current
+;;;;  * instruction. The addressM and pc outputs are clocked: although they
+;;;;  * are affected by the execution of the current instruction, they
+;;;;  * commit to their new values only in the next time step. If reset==1
+;;;;  * then the CPU jumps to address 0 (i.e. pc is set to 0 in next time
+;;;;  * step) rather than to the address resulting from executing the
+;;;;  * current instruction.
+;;;;  */
+
+(defgate CPU
+    (IN
+        (inM 16)
+        (instruction 16)
+        reset)
+
+    (OUT
+        (outM 16)
+        writeM
+        (addressM 15)
+        (pc 15))
+
+  (Not (in (instruction 15)) (out aInstruction))
+  (And (a (instruction 15)) (b (instruction 3)) (out writeM))
+  (And (a (instruction 4)) (b (instruction 15)) (out writeD))
+  (Register (in aluValue) (load writeD) (out dReg))
+  (Or (a aInstruction) (b (instruction 5)) (out writeA))
+  (Register (in inA) (load writeA) ((out 0 14) aReg) ((out 0 14) addressM))
+  (Mux16
+    ((a 0 14) (instruction 0 14))
+    ((a 15) GND)
+    (b aluValue)
+    (sel (instruction 15))
+    (out inA))
+  (Mux16
+    ((a 0 14) aReg)
+    ((a 15) GND)
+    (b inM)
+    (sel (instruction 12))
+    (out aRegORmReg))
+  (ALU
+    (x dReg)
+    (y aRegORmReg)
+    (zx (instruction 11))
+    (nx (instruction 10))
+    (zy (instruction 9))
+    (ny (instruction 8))
+    (f (instruction 7))
+    (no (instruction 6))
+    (out aluValue)
+    (out outM)
+    (zr zr)
+    (ng ng))
+  (Or (a ng) (b zr) (out notps))
+  (Not (in notps) (out ps))
+  (And (a ng) (b (instruction 2)) (out caseNegative))
+  (And (a zr) (b (instruction 1)) (out caseZero))
+  (And (a ps) (b (instruction 0)) (out casePositive))
+  (Or (a caseNegative) (b casePositive) (out loadPC0))
+  (Or (a loadPC0) (b caseZero) (out loadPC1))
+  (And (a (instruction 15)) (b loadPC1) (out loadPC))
+  (Not (in loadPC) (out incrementPC))
+  (PC
+    (load loadPC)
+    (inc incrementPC)
+    (reset reset)
+    ((in 0 14) aReg) 
+    ((in 15) GND)
+    ((out 0 14) pc))
+  (@instrument-reg-D dReg)
+  (@instrument-reg-A aReg)
+  (@instrument-reg-M writeM outM))
+

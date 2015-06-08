@@ -1,9 +1,0 @@
-
-CHIP DLatch {
-    IN d, enable;
-    OUT q, notq;
-PARTS:
-    Nand(a = d, b = enable, out = s0);
-    Nand(a = s0, b = enable, out = r0);
-    RSLatch(s = s0, r = r0, q = q, notq = notq);
-}

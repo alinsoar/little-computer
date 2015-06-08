@@ -1,0 +1,20 @@
+;;;; /**
+;;;;  * 16-bit Xor: 
+;;;;  * for i = 0..15 out[i] = 1 if a[i] != b[i] 
+;;;;  *                        0 otherwise
+;;;;  */
+
+(defgate Xor16
+    (IN
+        (a 16)
+        (b 16))
+
+    (OUT
+        (out 16))
+
+  (Not16 (in a) (out nota))
+  (Not16 (in b) (out notb))
+  (And16 (a a) (b notb) (out aAndNotb))
+  (And16 (a b) (b nota) (out bAndNota))
+  (Or16 (a aAndNotb) (b bAndNota) (out out)))
+

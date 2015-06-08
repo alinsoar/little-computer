@@ -1,0 +1,22 @@
+;;;; /** 
+;;;;  * Multiplexor:
+;;;;  * out = a if sel == 0
+;;;;  *       b otherwise
+;;;;  */
+
+
+(defgate Mux
+    (IN
+        a
+        b
+        sel)
+
+    (OUT
+        out)
+
+  ;; /* Non-lenient Multiplexor */
+  (Not (in sel) (out nots))
+  (Nand (a a) (b nots) (out anots))
+  (Nand (a b) (b sel) (out bs))
+  (Nand (a anots) (b bs) (out out)))
+
