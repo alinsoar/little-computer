@@ -1,0 +1,14 @@
+
+/**
+   ROM of 32K.
+ */
+
+CHIP Nand {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+
+    Not(in = true, out = out);
+
+}

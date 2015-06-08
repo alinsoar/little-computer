@@ -1,0 +1,15 @@
+
+CHIP DFF {
+    IN in;
+    OUT out;
+
+PARTS:
+
+    Not(in = clock, out = notclk);
+
+    /* Master */
+    DLatch(d = in, enable = clock, q = dmaster, notq = ndmaster);
+    /* Slave */
+    RSFlipFlop(s = dmaster, r=ndmaster, enable = notclk, q = out, notq = dummy);
+
+}

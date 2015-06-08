@@ -1,0 +1,15 @@
+
+/**
+   IO access. We send signals on `out` wires that represent the ASCII
+   code of some character.
+ */
+
+CHIP Keyboard {
+    OUT out[16];
+
+    PARTS:
+
+
+    @instrument-keyboard out;
+
+}
