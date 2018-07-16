@@ -5,12 +5,8 @@
 
 The Little Computer is a tool for creating computers.
 
-Initially it was designed to implement the Hack Architecture but it can
-be used for implementing advanced computers as well.
-
 The Little Computer, at the current stage (version 0.2), is no more no
-less than the Hack Computer in executable form.  This is why in the
-current version, 0.2, it makes sense to intermix the terms.
+less than the Hack Computer in executable form. 
 
 The Hack Computer is defined in the `TEoCS` book, "The Elements of
 Computing Systems", MIT press.
@@ -20,32 +16,6 @@ Computer implemented is defined in the Appendix A of the TEoCS book.
 
 The only difference between the semantics defined in the TEoCS and the
 current implementation is in Output. See the INPUT AND OUTPUT.
-
-
-
-
-* FUTURE DEVELOPMENT
-
-In the future I am not sure if I further develop the Little Computer
-such that to do it a professional tool like Verilog, but I have these
-things on the TODO-LIST with different priorities:
-
--- a C99 compiler generating Hack assembler such that the C
-   programmers be able to write code running on the little computer.
-
--- a machine that implements an evaluator of MIT-SCHEME written as
-   datapath and control logic -- as wires, latches, clocks, nands, and
-   things like that.
-
--- The Little Computer will be rewritten in MIT-SCHEME such that the
-   Knights of the Lambda Calculus to like it.  In this moment the code
-   is already written in RxRS assembler, without using racket's
-   specific features, so the conversion should be direct.
-
--- a back end to the C99 compiler such that it generate HDL
-   combinational logic.
-
-
 
 
 * INPUT AND OUTPUT
@@ -181,10 +151,7 @@ values of the collatz function.
 
 There are surely bugs but no one was discovered as yet.
 
-If you discover some bug please report me by mail.
-
-
-My English is not advanced.  If you find notorious mistakes of English
+If you discover some bug please report me by mail. Also, if you find notorious mistakes of English
 please write me the logical explanation why the mistake was made.
 
 
