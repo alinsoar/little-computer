@@ -64,11 +64,11 @@ supposed to be known only by the working technician.
 
 | FILE               | IN-LANG                       | OUT-LANG          | DESCRIPTION                              |
 |--------------------+-------------------------------+-------------------+------------------------------------------|
-| *.hdl              | *ALGEBRAIC EQUATIONS*         | HDL               | hardware description language            |
+| *.hdl              | ALGEBRAIC EQUATIONS           | HDL               | hardware description language            |
 | *.hdl              | HDL                           | HDL BYTECODE      | semantic check of hdl files               |
 | *.hwc              | HDL BYTECODE                  | HWS               | modularize the hardware structures       |
 | sim                | HWS; HACK MICROCODE           | PROPAGATORS       | simulator of the electrical signal flow   |
-| lexer              | REGEX COMBINATORS, *RAW CODE* | TOKEN STREAM      | tokenize an input in function of regexps |
+| lexer              | REGEX COMBINATORS, RAW CODE   | TOKEN STREAM      | tokenize an input in function of regexps |
 | hack-lexical       | REGULAR EXPRESSIONS           | REGEX COMBINATORS | define hack token syntax                  |
 | hack-phrase-struct | AUTOMATA, HACK TOKENS         | HACK MICROCODE    | called by hack assembler                 |
 
