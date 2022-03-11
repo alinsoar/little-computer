@@ -3,19 +3,24 @@
 
 * DESCRIPTION
 
-The Little Computer is a tool for creating computers.
-
-The Little Computer, at the current stage (version 0.2), is no more no
-less than the Hack Computer in executable form. 
-
-The Hack Computer is defined in the `TEoCS` book, "The Elements of
-Computing Systems", MIT press.
+The Little Computer is a tool for creating computers.  
+I have implemented it with the purpose of building the Hack Computer
+that is defined in the `TEoCS` book, "The Elements of
+Computing Systems", MIT press, and taught in the course "From NAND to Tetris".
 
 The semantics of the Hardware Description Language that the Little
 Computer implemented is defined in the Appendix A of the TEoCS book.
 
 The only difference between the semantics defined in the TEoCS and the
 current implementation is in Output. See the INPUT AND OUTPUT.
+
+
+The development of the little computer took exactly 20 days of working a
+few hours each day.  I built it after I discovered the Nand2Tetris
+course on coursera.  In the first 3 weeks I quickly studied the
+materials and in the last 3 weeks I built the little computer.  
+
+
 
 
 * INPUT AND OUTPUT
@@ -31,7 +36,9 @@ abstracted modulo bus width).
 
 In the Little Computer, in order to print the character with the ascii
 code A we do simply so: SCREEN[A]=1.  The useful screen memory has
-only 128 locations.
+only 128 locations. After such an assembler command is executed, at 
+the next clock tick the action associated with the electric wire
+connected to the display will print the character.
 
 This is the only semantic difference between the TEoCS definition
 and the current implementation.
@@ -41,43 +48,7 @@ sound GETCHAR function that should be used by the programmer.  The
 hack programmer who wants to read keys from the keyboard should know
 how the hack computer works in its internals in order to successfully
 write a getchar function.  See the example code and the comments from
-sim in order to understand the logic behind.
-
-
-
-
-* CURRENT VERSION 0.2 (CANONICAL HACK) VS. VERSION 0.1 (INITIAL HACK)
-
-There is no big difference between these 2 versions but there are a
-myriad of little improvements.
-
-The major improvement is the addition of Input/Output, which replaced
-the need to attach probes on wires/buses to read the results and to
-encode the input either in the microcode or in hardware.
-
-The development of the first version, 0.1, was stopped when I could
-compute any primitive and general recursive function.
-
-The development of the present version, 0.2, had purpose to add i/o
-and to simplify the code at canonical form.
-
-The lexer used by the Hack assembler is the same that I wrote for the
-compiler of the C programming language (update to come next, in
-version 0.3).
-
-The tests used to check the correctness of the hardware structures
-have been dropped, as the hardware has been heavily checked in version
-0.1.  To see the tests, check out the tag 0.1.
-
-The HDL equations were modified from TEoCS syntax to lisp syntax
-`defgate`.
-
-The version 0.1 presents no more any practical interest.  However, I
-keep it at the tag `0.1` in order to keep in memory how I developed
-the first version.  The development took exactly 20 days of working a
-few hours each day.  I built it after I discovered the Nand2Tetris
-course on coursera.  In the first 3 weeks I quickly studied the
-materials and in the last 3 weeks I built the little computer.
+`sim` in order to understand the logic behind.
 
 
 
@@ -94,19 +65,12 @@ supposed to be known only by the working technician.
 | FILE               | IN-LANG                       | OUT-LANG          | DESCRIPTION                              |
 |--------------------+-------------------------------+-------------------+------------------------------------------|
 | *.hdl              | *ALGEBRAIC EQUATIONS*         | HDL               | hardware description language            |
-| hdl-semantics      | HDL                           | HDL BYTECODE      | semantic check of hdl files              |
-| hwc                | HDL BYTECODE                  | HWS               | modularize the hardware structures       |
-| sim                | HWS; HACK MICROCODE           | PROPAGATORS       | simulator of the electrical signal flow  |
+| *.hdl              | HDL                           | HDL BYTECODE      | semantic check of hdl files               |
+| *.hwc              | HDL BYTECODE                  | HWS               | modularize the hardware structures       |
+| sim                | HWS; HACK MICROCODE           | PROPAGATORS       | simulator of the electrical signal flow   |
 | lexer              | REGEX COMBINATORS, *RAW CODE* | TOKEN STREAM      | tokenize an input in function of regexps |
-| hack-lexical       | REGULAR EXPRESSIONS           | REGEX COMBINATORS | define hack token syntax                 |
+| hack-lexical       | REGULAR EXPRESSIONS           | REGEX COMBINATORS | define hack token syntax                  |
 | hack-phrase-struct | AUTOMATA, HACK TOKENS         | HACK MICROCODE    | called by hack assembler                 |
-|--------------------+-------------------------------+-------------------+------------------------------------------|
-| c-lexical          | regular expressions           | regex combinators | lexical structure of C files             |
-| c-phrase-struct    | c tokens, automata            | c parse tree      | context free structure of C files        |
-| c-semantics        | c parse tree                  | cimple            | C Simple with no semantic errors         |
-| cimple             | cimple                        | ... hack-asm      | TODO NEXT                                |
-|                    |                               |                   |                                          |
-
 
 
 
@@ -146,13 +110,6 @@ values of the collatz function.
 
 
 
-
-* BUGS
-
-There are surely bugs but no one was discovered as yet.
-
-If you discover some bug please report me by mail. Also, if you find notorious mistakes of English
-please write me the logical explanation why the mistake was made.
 
 
 
