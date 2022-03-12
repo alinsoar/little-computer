@@ -53,7 +53,7 @@ write a getchar function.  See the example code and the comments from
 
 
 
-* THE LAYERS OF LANGUAGES IMPLEMENTED FOR THE LITTLE COMPUTER.
+* THE LAYERS OF LANGUAGES
 
 
 | FILE               | IN-LANG                       | OUT-LANG          | DESCRIPTION                              |
