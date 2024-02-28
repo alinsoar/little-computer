@@ -1,6 +1,12 @@
 # -*- mode:org ; buffer-read-only:t -*-
  
 
+* WARNING
+
+The code was written with `racket 6.0` and it seems that the input does not work with recent versions of racket.
+
+
+
 * DESCRIPTION
 
 The Little Computer is a tool for creating computers.  
