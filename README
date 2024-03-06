@@ -3,7 +3,7 @@
 
 * WARNING
 
-The code was written with _racket 6.0_ and it seems that the keyboard input does not work with recent versions of racket.
+The code was written with _`racket 6.0`_ and it seems that the keyboard input does not work with recent versions of racket.
 
 
 
