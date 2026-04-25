@@ -1,9 +1,10 @@
 # -*- mode:org ; buffer-read-only:t -*-
- 
+
+#+OPTIONS: toc:nil
 
 * DESCRIPTION
 
-The Little Computer is a tool for creating computers.  
+The Little Computer is a tool for creating computers.
 I have implemented it with the purpose of building the Hack Computer
 that is defined in the `TEoCS` book, "The Elements of
 Computing Systems", MIT press, and taught in the course "From NAND to Tetris".
@@ -18,7 +19,7 @@ current implementation is in Output. See the INPUT AND OUTPUT.
 The development of the little computer took exactly 20 days of working a
 few hours each day.  I built it after I discovered the Nand2Tetris
 course on coursera.  In the first 3 weeks I quickly studied the
-materials and in the last 3 weeks I built the little computer.  
+materials and in the last 3 weeks I built the little computer.
 
 
 
@@ -36,7 +37,7 @@ abstracted modulo bus width).
 
 In the Little Computer, in order to print the character with the ascii
 code A we do simply so: SCREEN[A]=1.  The useful screen memory has
-only 128 locations. After such an assembler command is executed, at 
+only 128 locations. After such an assembler command is executed, at
 the next clock tick the action associated with the electric wire
 connected to the display will print the character.
 
@@ -72,8 +73,9 @@ write a getchar function.  See the example code and the comments from
 
 
 ** 1. compile the .hdl equations with
-
+#+BEGIN_SRC sh
   make hwc
+#+END_SRC
 
 This will create the .hw files in ./hw directory. One can split the
 whole computer in any modules we want by inserting them in
@@ -91,28 +93,34 @@ replaced by a software simulator within sim.
   instead of (eval 'Computer ...).  Like this, the simulator can be
   used to simulate any computer, not only the Hack Computer, that was
   the initial target of this project.
-  
+
 
 ** 2. compile the hack programs with
-
+#+BEGIN_SRC sh
   make hack
+#+END_SRC
 
 This will create the binary files in Hack format in ./bin directory.
 
 ** 3. see the list of available hack programs doing so:
-
+#+BEGIN_SRC sh
   make sim
+#+END_SRC
 
 ** 1.2.3.You can also execute all the steps 1-3 once just by typing:
-
+#+BEGIN_SRC sh
   make rebuild
+#+END_SRC
 
 ** 4. execute the hack program `collatz` (https://oeis.org/A008884) so:
-
+#+BEGIN_SRC sh
   make sim HACK=collatz
+#+END_SRC
 
 ** 5. example output
+#+BEGIN_EXAMPLE
 
+## check the HDL semantically and build the modules from MODULE-LIST
 ~~ make hwc
 creating the directory ./bin/
 creating the directory ./hw/
@@ -122,7 +130,8 @@ Loaded ALU, Add16, And, And16, Bit, CPU, Computer, CondNeg16, DFF, DLatch, DMux,
 Saving compiled modules: Mux; Bit; RAM8; Computer; RAM64; RAM512; Register; Add16; Inc16; RAM4K; CPU; RAM16K;
 
 
-## compile the hardware description and the user applications
+## compile the hdl computer to a vectorial and symbolic format
+## compile the user applications written in assembly to microcode
 ~~  make hack
 creating the directory ./bin/
 creating the directory ./hw/
@@ -133,10 +142,8 @@ Compile read-sum-print
 Compile sum100
 
 
-## The Collatz program reads an integer from the input and displays the
-## values of the collatz function.
-
-r
+## The Collatz program reads an integer from the input and
+## displays the values of the collatz function.
 ~~ make sim HACK=collatz
 racket sim.rkt ./bin//collatz.hack
  Loading HWS abstractions ............ done.
@@ -162,14 +169,25 @@ racket sim.rkt ./bin//collatz.hack
  Starting the HACK microcode execution.
 --
 N=27
- 1.82 2.41 3.124 4.62 5.31 6.94 7.47 8.142 9.71 10.214 11.107 12.322 13.161 14.484 15.242 16.121 17.364 18.182 19.91 20.274 21.137 22.412 23.206 24.103 25.310 26.155 27.466 28.233 29.700 30.350 31.175 32.526 33.263 34.790 35.395 36.1186 37.593 38.1780 39.890 40.445 41.1336 42.668 43.334 44.167 45.502 46.251 47.754 48.377 49.1132 50.566 51.283 52.850 53.425 54.1276 55.638 56.319 57.958 58.479 59.1438 60.719 61.2158 62.1079 63.3238 64.1619 65.4858 66.2429 67.7288 68.3644 69.1822 70.911 71.2734 72.1367 73.4102 74.2051 75.6154 76.3077 77.9232 78.4616 79.2308 80.1154 81.577 82.1732 83.866 84.433 85.1300 86.650 87.325 88.976 89.488 90.244 91.122 92.61 93.184 94.92 95.46 96.23 97.70 98.35 99.106 100.53 101.160 102.80 103.40 104.20 105.10 106.5 107.16 108.8 109.4 110.2 111.1
+ 1.82 2.41 3.124 4.62 5.31 6.94 7.47 8.142 9.71 10.214
+ 11.107 12.322 13.161 14.484 15.242 16.121 17.364 18.182 19.91 20.274
+ 21.137 22.412 23.206 24.103 25.310 26.155 27.466 28.233 29.700 30.350
+ 31.175 32.526 33.263 34.790 35.395 36.1186 37.593 38.1780 39.890 40.445
+ 41.1336 42.668 43.334 44.167 45.502 46.251 47.754 48.377 49.1132 50.566
+ 51.283 52.850 53.425 54.1276 55.638 56.319 57.958 58.479 59.1438 60.719
+ 61.2158 62.1079 63.3238 64.1619 65.4858 66.2429 67.7288 68.3644 69.1822 70.911
+ 71.2734 72.1367 73.4102 74.2051 75.6154 76.3077 77.9232 78.4616 79.2308 80.1154
+ 81.577 82.1732 83.866 84.433 85.1300 86.650 87.325 88.976 89.488 90.244
+ 91.122 92.61 93.184 94.92 95.46 96.23 97.70 98.35 99.106 100.53
+ 101.160 102.80 103.40 104.20 105.10 106.5 107.16 108.8 109.4 110.2
+ 111.1
 --
  FINISHED
  fugit irreparabile tempus 47977
  Console restored.
 
-## list the available applications
 
+## list the available applications
 ~~ make sim
 To execute the hack program PROG do so:
 \tmake sim HACK=PROG
@@ -180,8 +198,8 @@ PROG can be one of
         read-sum-print   read/number/N - sum S=1+2+...N - print S.
         sum100           compute the primitive recursive function 1+2+...+100.
 
-## compute 1+2+3+...+N
 
+## compute 1+2+3+...+N
 ~~ make sim HACK=read-sum-print
 racket sim.rkt ./bin//read-sum-print.hack
  Loading HWS abstractions ............ done.
@@ -212,3 +230,40 @@ N=100
  FINISHED
  fugit irreparabile tempus 2210
  Console restored.
+
+
+## an infinite loop that echoes the input after pressing return.
+## Ctrl-c to stop
+~~ make sim HACK=echo
+racket sim.rkt ./bin//echo.hack
+ Loading HWS abstractions ............ done.
+ Load the microcode...
+ Build the datapath...
+ REG D ok.
+ REG A ok.
+ REG M ok.
+ REG PC ok.
+ RAM activated on 14 bits.
+ Screen activated.
+ Keyboard activated.
+ Input console settings saved.
+ Input console commuted in raw mode.
+ ROM installed.
+ The microcode has a length of 48 instructions.
+ Reset... reset complete.
+ The CLOCK is connected to 195 wires.
+ total 1639 nands.
+ total 1734 wires.
+ total 2 registers expanded as nands.
+ total 3103 propagator actions installed.
+ Starting the HACK microcode execution.
+--
+Hello World!
+Hello World!
+
+--
+ INTERRUPTED
+ fugit irreparabile tempus 10050
+ Console restored.
+ 
+#+END_EXAMPLE

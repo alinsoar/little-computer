@@ -82,3 +82,9 @@ rebuild: clean
 	@make --silent hack
 	@make --silent sim
 
+README.md: README
+	emacs --batch README \
+	      --eval "(require 'ox-md)" \
+	      --eval "(org-md-export-to-markdown)"
+
+readme: README.md
