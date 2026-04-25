@@ -534,6 +534,8 @@ output.  The outputs are ascii characters of the pressed keys, not
 coins.  Sine labore non erit panis in ore."
     (d "Keyboard activated.")
 
+    (define KBD-BUF (make-bytes 1))
+
     ;; save current terminal settings
     (terminal 'SAVE!)
     
@@ -584,10 +586,11 @@ keys that are captured by the canonical Hack GETCHAR procedure should
 be .666666 -- this is an _a priori_ statement.  TODO: Test this using
 the ECHO program.
 "
-          (cond ((char-ready?)
-                 (set! CHASCII (char->integer (read-char)))
-                 ;; (d CHASCII)
-                 (set! resend-count 3)
+          (cond ((let ((n (read-bytes-avail!* KBD-BUF)))
+		   (and (number? n) (= n 1)))
+		 (set! CHASCII (char->integer (read-char)))
+		 ;; (d CHASCII)
+		 (set! resend-count 3)
                  (sendcode! CHASCII))
                 ((> resend-count 0)
                  (set! resend-count (sub1 resend-count))
@@ -792,7 +795,7 @@ successful action must _always_ return a true value."
            (d "total" (counter/get 'nand) "nands.")
            (d "total" (counter/get 'cells) "wires.")
            (d "total" (/ (counter/get 'latches) 16 3) "registers expanded as nands.")
-           (d "total" (counter/get 'cell/action) "actions installed.")
+           (d "total" (counter/get 'cell/action) "propagator actions installed.")
            (d "Starting the HACK microcode execution.")
            (p "--")
            (newline)
