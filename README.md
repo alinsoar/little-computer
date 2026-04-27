@@ -171,8 +171,9 @@ This will create the binary files in Hack format in ./bin directory.
 
 ## 5. example output
 
+&#x2014; check the HDL semantically and build the modules from MODULE-LIST
+
     
-    ## check the HDL semantically and build the modules from MODULE-LIST
     ~~ make hwc
     creating the directory ./bin/
     creating the directory ./hw/
@@ -180,10 +181,12 @@ This will create the binary files in Hack format in ./bin directory.
      Compiling Computer
      Longest definition: 12
     Saving compiled modules: Mux; Bit; RAM8; Computer; RAM64; RAM512; Register; Add16; Inc16; RAM4K; CPU; RAM16K;
+
+&#x2014; compile the hdl computer to a vectorial and symbolic format
+
+&#x2014; compile the user applications written in assembly to microcode
+
     
-    
-    ## compile the hdl computer to a vectorial and symbolic format
-    ## compile the user applications written in assembly to microcode
     ~~  make hack
     creating the directory ./bin/
     creating the directory ./hw/
@@ -192,10 +195,9 @@ This will create the binary files in Hack format in ./bin directory.
     Compile print-input
     Compile read-sum-print
     Compile sum100
-    
-    
-    ## The Collatz program reads an integer from the input and
-    ## displays the values of the collatz function.
+
+&#x2014; The Collatz program reads an integer from the input and displays the values of the collatz function.
+
     ~~ make sim HACK=collatz
     racket sim.rkt ./bin//collatz.hack
      Loading HWS abstractions ............ done.
@@ -237,9 +239,10 @@ This will create the binary files in Hack format in ./bin directory.
      FINISHED
      fugit irreparabile tempus 47977
      Console restored.
+
+&#x2014; list the available applications
+
     
-    
-    ## list the available applications
     ~~ make sim
     To execute the hack program PROG do so:
     \tmake sim HACK=PROG
@@ -249,9 +252,10 @@ This will create the binary files in Hack format in ./bin directory.
             print-input      read-print-loop.
             read-sum-print   read/number/N - sum S=1+2+...N - print S.
             sum100           compute the primitive recursive function 1+2+...+100.
+
+&#x2014; compute 1+2+3+&#x2026;+N
+
     
-    
-    ## compute 1+2+3+...+N
     ~~ make sim HACK=read-sum-print
     racket sim.rkt ./bin//read-sum-print.hack
      Loading HWS abstractions ............ done.
@@ -282,9 +286,12 @@ This will create the binary files in Hack format in ./bin directory.
      FINISHED
      fugit irreparabile tempus 2210
      Console restored.
+
+&#x2014; an infinite loop that echoes the input after pressing return.
+
+&#x2014; Ctrl-c to stop
+
     
-    
-    ## an infinite loop that echoes the input after pressing return.
     ~~ make sim HACK=echo
     racket sim.rkt ./bin//echo.hack
      Loading HWS abstractions ............ done.

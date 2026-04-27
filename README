@@ -2,6 +2,7 @@
 
 #+OPTIONS: toc:nil
 
+
 * DESCRIPTION
 
 The Little Computer is a tool for creating computers.
@@ -118,9 +119,11 @@ This will create the binary files in Hack format in ./bin directory.
 #+END_SRC
 
 ** 5. example output
+
+ --- check the HDL semantically and build the modules from MODULE-LIST
+
 #+BEGIN_EXAMPLE
 
-## check the HDL semantically and build the modules from MODULE-LIST
 ~~ make hwc
 creating the directory ./bin/
 creating the directory ./hw/
@@ -130,8 +133,13 @@ Loaded ALU, Add16, And, And16, Bit, CPU, Computer, CondNeg16, DFF, DLatch, DMux,
 Saving compiled modules: Mux; Bit; RAM8; Computer; RAM64; RAM512; Register; Add16; Inc16; RAM4K; CPU; RAM16K;
 
 
-## compile the hdl computer to a vectorial and symbolic format
-## compile the user applications written in assembly to microcode
+#+END_EXAMPLE
+
+--- compile the hdl computer to a vectorial and symbolic format
+
+--- compile the user applications written in assembly to microcode
+#+BEGIN_EXAMPLE
+
 ~~  make hack
 creating the directory ./bin/
 creating the directory ./hw/
@@ -142,8 +150,10 @@ Compile read-sum-print
 Compile sum100
 
 
-## The Collatz program reads an integer from the input and
-## displays the values of the collatz function.
+#+END_EXAMPLE
+
+ --- The Collatz program reads an integer from the input and displays the values of the collatz function.
+#+BEGIN_EXAMPLE
 ~~ make sim HACK=collatz
 racket sim.rkt ./bin//collatz.hack
  Loading HWS abstractions ............ done.
@@ -187,7 +197,14 @@ N=27
  Console restored.
 
 
-## list the available applications
+#+END_EXAMPLE
+
+
+ --- list the available applications
+
+
+#+BEGIN_EXAMPLE
+
 ~~ make sim
 To execute the hack program PROG do so:
 \tmake sim HACK=PROG
@@ -198,8 +215,13 @@ PROG can be one of
         read-sum-print   read/number/N - sum S=1+2+...N - print S.
         sum100           compute the primitive recursive function 1+2+...+100.
 
+#+END_EXAMPLE
 
-## compute 1+2+3+...+N
+
+ --- compute 1+2+3+...+N
+
+#+BEGIN_EXAMPLE
+
 ~~ make sim HACK=read-sum-print
 racket sim.rkt ./bin//read-sum-print.hack
  Loading HWS abstractions ............ done.
@@ -231,9 +253,15 @@ N=100
  fugit irreparabile tempus 2210
  Console restored.
 
+#+END_EXAMPLE
 
-## an infinite loop that echoes the input after pressing return.
-## Ctrl-c to stop
+
+ --- an infinite loop that echoes the input after pressing return.
+
+ --- Ctrl-c to stop
+
+#+BEGIN_EXAMPLE
+
 ~~ make sim HACK=echo
 racket sim.rkt ./bin//echo.hack
  Loading HWS abstractions ............ done.
@@ -267,3 +295,4 @@ Hello World!
  Console restored.
  
 #+END_EXAMPLE
+
